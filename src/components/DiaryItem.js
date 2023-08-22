@@ -7,7 +7,7 @@ export default function DiaryItem({id, emotion, content, date}) {
 
   const goDetail = () => navigate(`/diary/${id}`)
 
-  const goEdit = () => navigate('/edit')
+  const goEdit = () => navigate(`/edit/${id}`)
 
   return (
     <div className="DiaryItem">
