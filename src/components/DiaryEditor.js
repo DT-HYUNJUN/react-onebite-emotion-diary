@@ -8,6 +8,7 @@ import EmotionItem from './EmotionItem'
 
 import { getStringDate } from '../util/date'
 import { emotionList } from '../util/emotion'
+import { useCallback } from 'react'
 
 export default function DiaryEditor({isEdit, originData}) {
   const [date, setDate] = useState(getStringDate(new Date()))
@@ -20,7 +21,9 @@ export default function DiaryEditor({isEdit, originData}) {
 
   const navigate = useNavigate()
 
-  const handleClickEmote = (emotion) => setEmotion(emotion)
+  const handleClickEmote = useCallback((emotion) => {
+    setEmotion(emotion)
+  }, [])
 
   const handleSubmit = () => {
     if (content.length < 1) {

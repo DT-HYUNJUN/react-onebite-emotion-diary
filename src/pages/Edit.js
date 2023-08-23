@@ -14,7 +14,6 @@ export default function Edit() {
   useEffect(() => {
     if (diaryList.length > 0) {
       const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id))
-      console.log(targetDiary)
 
       if (targetDiary) {
         setOriginData(targetDiary)
