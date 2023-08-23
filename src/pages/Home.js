@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
+import { DiaryStateContext } from "../App"
 
 import MyHeader from '../components/MyHeader'
 import MyButton from '../components/MyButton'
 import DiaryList from '../components/DiaryList'
-import { DiaryStateContext } from "../App"
 
 export default function Home() {
   const diaryList = useContext(DiaryStateContext)
@@ -30,10 +30,6 @@ export default function Home() {
       setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay))
     }
   }, [diaryList, curDate])
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   const increaseMonth = () => {
     setCurDate(
