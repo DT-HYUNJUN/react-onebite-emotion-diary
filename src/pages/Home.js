@@ -4,9 +4,12 @@ import { DiaryStateContext } from "../App"
 import MyHeader from '../components/MyHeader'
 import MyButton from '../components/MyButton'
 import DiaryList from '../components/DiaryList'
+import { useNavigate } from "react-router-dom"
 
 export default function Home() {
   const diaryList = useContext(DiaryStateContext)
+
+  const navigate = useNavigate()
 
   const [data, setData] = useState([])
   const [curDate, setCurDate] = useState(new Date())
@@ -48,9 +51,14 @@ export default function Home() {
     )
   }
 
+  const goToCalendar = () => navigate('/calendar')
+
   return (
     <div>
       <MyHeader headText={headText} leftChild={<MyButton text={'<'} onClick={decreaseMonth} />} rightChild={<MyButton text={'>'} onClick={increaseMonth} />} />
+      <div className="home_calendar">
+        <MyButton text={'달력'} onClick={goToCalendar} />
+      </div>
       <DiaryList diaryList={data} />     
     </div>
   )

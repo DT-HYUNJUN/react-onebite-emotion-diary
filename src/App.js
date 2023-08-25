@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
+import Calendar from './pages/Calendar';
 
 const reducer = (state, action) => {
   let newState = []
@@ -90,6 +91,7 @@ function App() {
           <div className="App">
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/calendar' element={<Calendar />} />
               <Route path='/new' element={<New />} />
               <Route path='/edit/:id' element={<Edit />} />
               <Route path='/diary/:id' element={<Diary />} />
