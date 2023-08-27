@@ -382,6 +382,18 @@ header button {
   justify-content: flex-end;
 }
 
+/* Calendar */
+.Calendar .top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Calendar .top button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 30px;
+}
+
 .home_calendar button {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -438,3 +450,17 @@ header button {
   gap: 5px;
 }
 
+.Cell_top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Cell_top button {
+  cursor: pointer;
+  border: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 25px;
+  background: none;
+}

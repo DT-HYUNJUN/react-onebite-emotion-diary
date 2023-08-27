@@ -1,7 +1,6 @@
-import { addDays, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfMonth, startOfWeek } from "date-fns"
+import { addDays, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, parse, startOfMonth, startOfWeek } from "date-fns"
 
-export default function Cell({month}) {
-  const today = new Date()
+export default function Cell({month, onDateClick, selectedDate}) {
   const monthStart = startOfMonth(month)
   const monthEnd = endOfMonth(monthStart)
   const startDate = startOfWeek(monthStart)
@@ -17,10 +16,8 @@ export default function Cell({month}) {
       formattedDate = format(day, 'd')
       const cloneDay = day
       days.push(
-        <div className={`Cell ${i === 0 ? 'sun' : i === 6 ? 'sat' : ''} ${!isSameMonth(day, monthStart)? 'disabled' : isSameDay(day, today) ? 'selected' : format(month, 'M') !== format(day, 'M') ? 'not-valid' : 'valid' } `} key={day}>
-          <span>{formattedDate}</span>
-          <div>
-          </div>
+        <div className={`Cell ${i === 0 ? 'sun' : i === 6 ? 'sat' : ''} ${!isSameMonth(day, monthStart)? 'disabled' : isSameDay(day, selectedDate) ? 'selected' : format(month, 'M') !== format(day, 'M') ? 'not-valid' : 'valid' } `} key={day} onClick={() => onDateClick((cloneDay))} >
+          <span className={format(month, 'M') !== format(day, 'M') ? 'text not-valid' : ''}>{formattedDate}</span>
         </div>
       )
       day = addDays(day, 1)

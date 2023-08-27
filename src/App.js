@@ -39,8 +39,16 @@ export const DiaryDispatchContext = React.createContext()
 function App() {
   const [data, dispatch] = useReducer(reducer, [])
 
+  const [todo, dispatchTodo] = useReducer(reducer, [])
+
+  const dataId = useRef(0)
+
+  const todoId = useRef(0)
+
   useEffect(() => {
     const localData = localStorage.getItem('diary')
+    const localDataTodo = localStorage.getItem('todo')
+
     if (localData) {
       const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id))
 
@@ -49,9 +57,16 @@ function App() {
         dispatch({type: 'INIT', data: diaryList})
       }
     }
-  }, [])
 
-  const dataId = useRef(0)
+    if (localDataTodo) {
+      const todoList = JSON.parse(localDataTodo).sort((a, b) => parseInt(b.id) - parseInt(a.id))
+
+      if (todoList.length >= 1) {
+        todoId.current = parseInt(todoList[0].id) + 1
+        dispatch({type: 'INIT', data: todoList})
+      }
+    }
+  }, [])
 
   // CREATE
   const onCreate = (date, content, emotion) => {
@@ -84,6 +99,34 @@ function App() {
       }
     })
   }
+
+  // Todo
+  const onCreateTodo = (content) => {
+    dispatchTodo({
+      type: 'CREATE',
+      data: {
+        id: todoId.current,
+        content,
+        isDone: false,
+      }
+    })
+    todoId.current += 1
+  }
+
+  const onRemoveTodo = (targetId) => {
+    dispatchTodo({type: 'REMOVE', targetId})
+  }
+
+  const onEditTodo = (targetId, content) => {
+    dispatchTodo({
+      type: 'EDIT',
+      data: {
+        id: targetId,
+        content: content
+      }
+    })
+  }
+  
   return (
     <DiaryStateContext.Provider value={data}>
       <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>

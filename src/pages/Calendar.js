@@ -7,11 +7,17 @@ import DiaryList from "../components/DiaryList";
 import DiaryItem from "../components/DiaryItem";
 import Days from "../components/calendar/Days";
 import Cell from "../components/calendar/Cell";
+import { useNavigate } from "react-router-dom";
+import TodoEditor from "../components/TodoEditor";
 
 export default function Calendar() {
   const diaryList = useContext(DiaryStateContext)
   const [data, setData] = useState([])
+
   const [curDate, setCurDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
+
+  const navigate = useNavigate()
 
   // 월별로 diary 변경
   useEffect(() => {
@@ -39,17 +45,21 @@ export default function Calendar() {
     setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() - 1, curDate.getDate()))
   }
 
+  const goToDiary = () => navigate('/')
+
+  const onDateClick = (day) => {
+    setSelectedDate(day)
+  }
+
   return (
     <div className="Calendar">
       <MyHeader headText={headText} leftChild={<MyButton text={'<'} onClick={decreaseMonth} />} rightChild={<MyButton text={'>'} onClick={increaseMonth} />} />
-      <h4>Calendar</h4>
-      {/* {diaryList.map((it) => (
-        <DiaryItem key={it.id} {...it} />
-      ))} */}
-      <Days />
-      <div>
-        <Cell month={curDate} />
+      <div className="top">
+        <MyButton text={'일기'} onClick={goToDiary} />
       </div>
+      <Days />
+      <Cell month={curDate} onDateClick={onDateClick} selectedDate={selectedDate} />
+      <TodoEditor selectedDate={selectedDate} />
     </div>
   )
 }
