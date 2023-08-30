@@ -1,23 +1,42 @@
-import { useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
+import { TodoDispatchContext } from "../App"
+import { getStringDate } from "../util/date"
 
 export default function TodoEditor({selectedDate}) {
-  const [data, setData] = useState([])
+  const [content, setContent] = useState('')
+  const [date, setDate] = useState(getStringDate(selectedDate))
 
-  const seletDate = `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}에 일정 추가`
+  const contentRef = useRef()
 
-  const [todo, setTodo] = useState({
-    content: '',
-    isDone: false,
-  })
+  const {onCreateTodo, onEditTodo, onRemoveTodo} = useContext(TodoDispatchContext)
 
-  const handleChange = (e) => setTodo(e.target.value)
+  useEffect(() => {
+    setDate(getStringDate(selectedDate))
+  }, [selectedDate])
 
-  const handleSubmit = () => setData([todo, ...data])
+  const inputPlaceholder = `${date.slice(5,7)}월 ${date.slice(8,10)}에 일정 추가`
+
+  const handleChange = (e) => setContent(e.target.value)
+
+  const handleSubmit = () => {
+    if (content.length < 1) {
+      contentRef.current.focus()
+      return
+    }
+    onCreateTodo(content, date)
+    setContent('')
+  }
+
   return (
-    <div>
+    <div className="TodoEditor">
       <h2>Todo Editor</h2>
-      <input placeholder={seletDate} value={todo.content} onChange={handleChange} />
-      <button onClick={handleSubmit}>+</button>
+      <div>
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      </div>
+      <div>
+        <input ref={contentRef} placeholder={inputPlaceholder} value={content} onChange={handleChange} />
+        <button onClick={handleSubmit}>+</button>
+      </div>
     </div>
   )
 }

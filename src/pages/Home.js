@@ -57,9 +57,9 @@ export default function Home() {
     <div>
       <MyHeader headText={headText} leftChild={<MyButton text={'<'} onClick={decreaseMonth} />} rightChild={<MyButton text={'>'} onClick={increaseMonth} />} />
       <div className="home_calendar">
-        <MyButton text={'달력'} onClick={goToCalendar} />
+        <MyButton text={'일정'} onClick={goToCalendar} />
       </div>
-      <DiaryList diaryList={data} />     
+      <DiaryList diaryList={data} />
     </div>
   )
 }

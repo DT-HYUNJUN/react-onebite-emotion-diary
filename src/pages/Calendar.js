@@ -1,17 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import MyHeader from "../components/MyHeader";
-import { getStringDate } from "../util/date";
 import MyButton from "../components/MyButton";
-import { DiaryStateContext } from "../App";
-import DiaryList from "../components/DiaryList";
-import DiaryItem from "../components/DiaryItem";
+import { DiaryStateContext, TodoStateContext } from "../App";
 import Days from "../components/calendar/Days";
 import Cell from "../components/calendar/Cell";
 import { useNavigate } from "react-router-dom";
 import TodoEditor from "../components/TodoEditor";
+import { getStringDate } from "../util/date";
 
 export default function Calendar() {
   const diaryList = useContext(DiaryStateContext)
+  const todoList = useContext(TodoStateContext)
   const [data, setData] = useState([])
 
   const [curDate, setCurDate] = useState(new Date())
@@ -60,6 +59,7 @@ export default function Calendar() {
       <Days />
       <Cell month={curDate} onDateClick={onDateClick} selectedDate={selectedDate} />
       <TodoEditor selectedDate={selectedDate} />
+      
     </div>
   )
 }
