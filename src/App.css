@@ -15,11 +15,17 @@ body {
   .App {
     width: 640px;
   }
+  .App_calendar {
+    width: 1000px;
+  }
 }
 
 /* 650px 이하일 때 */
 @media (max-width: 650px) {
   .App {
+    width: 90vw;
+  }
+  .App_calendar {
     width: 90vw;
   }
 }
@@ -30,6 +36,12 @@ body {
 }
 
 .App {
+  min-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.App_calendar {
   min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
@@ -383,6 +395,7 @@ header button {
 }
 
 /* Calendar */
+
 .Calendar .top {
   display: flex;
   justify-content: flex-end;
@@ -412,6 +425,11 @@ header button {
 
 /* Cell */
 .Cell {
+  display: flex;
+  gap: 20px;
+}
+
+.day {
   border: 1px solid #ECECEC;
   width: 95px;
   height: 90px;
@@ -422,6 +440,7 @@ header button {
   display: flex;
   justify-content: space-between;
   gap: 5px;
+  width: 640px;
 }
 
 .week {
@@ -455,50 +474,14 @@ header button {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-
-.Cell_top {
-  display: flex;
-  justify-content: space-between;
-}
-
-.Cell_top button {
-  cursor: pointer;
-  border: 0;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border-radius: 25px;
-  background: none;
+  width: 640px;
 }
 
 /* TodoList */
 .TodoList {
-  position: absolute;
-  top: 0;
-  left: 0;
-
+  border: 1px solid #ECECEC;
   width: 100%;
-  height: 100%;
-
-  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px;
 }
 
-.TodoList .body {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 400px;
-  height: 600px;
-
-  padding: 40px;
-
-  text-align: center;
-
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
-  transform: translateX(-50%) translateY(-50%);
-}
+/* NewTodo */

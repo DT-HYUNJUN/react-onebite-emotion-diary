@@ -1,11 +1,13 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 import Calendar from './pages/Calendar';
+import NewTodo from './pages/NewTodo';
+import Todo from './pages/Todo';
 
 const reducer = (state, action) => {
   let newState = []
@@ -67,12 +69,13 @@ export const TodoDispatchContext = React.createContext()
 
 function App() {
   const [data, dispatch] = useReducer(reducer, [])
-
   const [todo, dispatchTodo] = useReducer(reducerTodo, [])
 
   const dataId = useRef(0)
-
   const todoId = useRef(0)
+
+  const location = useLocation()
+  const appClassName = location.pathname === '/calendar' ? 'App_calendar' : 'App'
 
   useEffect(() => {
     const localData = localStorage.getItem('diary')
@@ -162,17 +165,17 @@ function App() {
       <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
         <TodoStateContext.Provider value={todo}>
           <TodoDispatchContext.Provider value={{ onCreateTodo, onEditTodo, onRemoveTodo }}>
-            <Router>
-              <div className="App">
+              <div className={appClassName}>
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/calendar' element={<Calendar />} />
                   <Route path='/new' element={<New />} />
                   <Route path='/edit/:id' element={<Edit />} />
                   <Route path='/diary/:id' element={<Diary />} />
+                  <Route path='/newTodo' element={<NewTodo />} />
+                  <Route path='/todo/:id' element={<Todo />} />
                 </Routes>
               </div>
-            </Router>
           </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
       </DiaryDispatchContext.Provider>

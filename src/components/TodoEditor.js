@@ -1,10 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { TodoDispatchContext } from "../App"
 import { getStringDate } from "../util/date"
+import { useNavigate } from "react-router-dom"
 
 export default function TodoEditor({selectedDate}) {
   const [content, setContent] = useState('')
   const [date, setDate] = useState(getStringDate(selectedDate))
+  const [isContent, setIsContent] = useState(false)
+
+  const navigate = useNavigate()
 
   const contentRef = useRef()
 
@@ -13,6 +17,10 @@ export default function TodoEditor({selectedDate}) {
   useEffect(() => {
     setDate(getStringDate(selectedDate))
   }, [selectedDate])
+
+  useEffect(() => {
+    content.length > 0 ? setIsContent(true) : setIsContent(false)
+  }, [content])
 
   const inputPlaceholder = `${date.slice(5,7)}월 ${date.slice(8,10)}에 일정 추가`
 
@@ -35,7 +43,7 @@ export default function TodoEditor({selectedDate}) {
       </div>
       <div>
         <input ref={contentRef} placeholder={inputPlaceholder} value={content} onChange={handleChange} />
-        <button onClick={handleSubmit}>+</button>
+        {isContent ? <button onClick={handleSubmit}>V</button> : <button onClick={() => navigate('/newTodo')}>+</button>}
       </div>
     </div>
   )

@@ -59,7 +59,6 @@ export default function Calendar() {
       <Days />
       <Cell month={curDate} onDateClick={onDateClick} selectedDate={selectedDate} />
       <TodoEditor selectedDate={selectedDate} />
-      
     </div>
   )
 }
