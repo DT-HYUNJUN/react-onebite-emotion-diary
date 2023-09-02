@@ -1,13 +1,13 @@
 import { addDays, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfMonth, startOfWeek } from "date-fns"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useState } from "react"
 import { TodoStateContext } from "../../App"
 import TodoList from '../TodoList'
 import { getStringDate } from "../../util/date"
 
-export default function Cell({month, onDateClick, selectedDate, todayTodos, getTodayTodos}) {
+export default function Cell({month, onDateClick, selectedDate}) {
   const todoList = useContext(TodoStateContext)
 
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(todoList.filter(it => it.date === `${getStringDate(new Date())}`))
 
   const today = new Date()
 

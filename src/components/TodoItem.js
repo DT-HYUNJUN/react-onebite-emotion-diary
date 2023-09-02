@@ -1,10 +1,21 @@
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { TodoDispatchContext } from "../App"
 
-export default function TodoItem({id, content, date}) {
+export default function TodoItem({id, content, isDone, date}) {
+  const [newIsDone, setNewIsDone] = useState(isDone)
+  const {onEditTodo} = useContext(TodoDispatchContext)
+
+  const handleIsDone = () => {
+    setNewIsDone((prev) => !prev)
+    onEditTodo(id, content, newIsDone, date)
+  }
+
   const navigate = useNavigate()
   return (
-    <div>
-      <h2 onClick={() => navigate(`/todo/${id}`)}>{content}</h2>
+    <div className="TodoItem">
+      <p className={isDone ? 'todo_content' : ''} onClick={() => navigate(`/todo/${id}`)}>{content}</p>
+      <input type="checkbox" checked={newIsDone} onChange={handleIsDone} />
     </div>
   )
 }

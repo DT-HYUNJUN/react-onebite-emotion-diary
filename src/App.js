@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import New from './pages/New';
@@ -50,6 +50,7 @@ const reducerTodo = (state, action) => {
       break
     }
     case 'EDIT': {
+      console.log('reducer edit', action)
       newState = state.map((it) => it.id === action.data.id ? {...action.data} : it)
       break
     }
@@ -150,12 +151,14 @@ function App() {
     dispatchTodo({type: 'REMOVE', targetId})
   }
 
-  const onEditTodo = (targetId, content) => {
+  const onEditTodo = (targetId, content, isDone, date) => {
     dispatchTodo({
       type: 'EDIT',
       data: {
         id: targetId,
-        content: content
+        content,
+        isDone,
+        date
       }
     })
   }

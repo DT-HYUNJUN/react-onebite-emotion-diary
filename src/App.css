@@ -208,10 +208,6 @@ header button {
 }
 
 /* DiaryEditor */
-.DiaryEditor {
-
-}
-
 .DiaryEditor section {
   margin-bottom: 40px;
 }
@@ -315,10 +311,6 @@ header button {
 }
 
 /* Diary */
-.DiaryPage {
-
-}
-
 .DiaryPage section {
   width: 100%;
   margin-bottom: 100px;
@@ -484,4 +476,18 @@ header button {
   padding: 20px;
 }
 
+.TodoList .header {
+  text-align: center;
+}
+
 /* NewTodo */
+
+/* TodoItem */
+.TodoItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TodoItem .todo_content {
+  text-decoration: line-through;
+}

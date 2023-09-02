@@ -19,7 +19,6 @@ export default function Todo() {
         alert('없는 일정입니다.')
         navigate('/calendar', {replace: true})
       }
-      console.log(data)
     }
   }, [todoList, id])
 
@@ -28,11 +27,13 @@ export default function Todo() {
       <div>로딩중...</div>
     )
   } else {
+    console.log(data)
     return (
       <div className="Todo">
         <MyHeader headText={'Todo'} leftChild={<MyButton text={'<'} onClick={() => navigate(-1)} />} rightChild={<MyButton text={'수정하기'} />}/>
         <div>
           <h2>{data.content}</h2>
+          <input type="checkbox" checked={data.isDone} />
         </div>
       </div>
     )
