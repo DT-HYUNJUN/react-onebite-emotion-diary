@@ -1,5 +1,5 @@
 import { addDays, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, startOfMonth, startOfWeek } from "date-fns"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { TodoStateContext } from "../../App"
 import TodoList from '../TodoList'
 import { getStringDate } from "../../util/date"
@@ -7,7 +7,7 @@ import { getStringDate } from "../../util/date"
 export default function Cell({month, onDateClick, selectedDate}) {
   const todoList = useContext(TodoStateContext)
 
-  const [todos, setTodos] = useState(todoList.filter(it => it.date === `${getStringDate(new Date())}`))
+  const [todos, setTodos] = useState([])
 
   const today = new Date()
 
@@ -25,6 +25,11 @@ export default function Cell({month, onDateClick, selectedDate}) {
     onDateClick(cloneDay)
     currentDayTodos.length > 0 ? setTodos(currentDayTodos) : setTodos([])
   }
+
+  useEffect(() => {
+    const currentDayTodos = todoList.filter(it => it.date === `${getStringDate(selectedDate)}`)
+    setTodos(currentDayTodos)
+  }, [todoList, selectedDate])
 
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {

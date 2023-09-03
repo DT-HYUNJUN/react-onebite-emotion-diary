@@ -50,7 +50,6 @@ const reducerTodo = (state, action) => {
       break
     }
     case 'EDIT': {
-      console.log('reducer edit', action)
       newState = state.map((it) => it.id === action.data.id ? {...action.data} : it)
       break
     }
@@ -151,13 +150,13 @@ function App() {
     dispatchTodo({type: 'REMOVE', targetId})
   }
 
-  const onEditTodo = (targetId, content, isDone, date) => {
+  const onEditTodo = (targetId, content, newIsDone, date) => {
     dispatchTodo({
       type: 'EDIT',
       data: {
         id: targetId,
         content,
-        isDone,
+        newIsDone,
         date
       }
     })

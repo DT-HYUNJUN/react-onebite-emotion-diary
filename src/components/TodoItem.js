@@ -14,8 +14,9 @@ export default function TodoItem({id, content, isDone, date}) {
   const navigate = useNavigate()
   return (
     <div className="TodoItem">
-      <p className={isDone ? 'todo_content' : ''} onClick={() => navigate(`/todo/${id}`)}>{content}</p>
+      <p className={newIsDone ? 'todo_content' : ''} onClick={() => navigate(`/todo/${id}`)}>{content}</p>
       <input type="checkbox" checked={newIsDone} onChange={handleIsDone} />
+      {`일정 ${newIsDone}`}
     </div>
   )
 }
