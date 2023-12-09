@@ -8,7 +8,27 @@ import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
 
-const reducer = (state, action) => {
+import { DiaryType } from "./types";
+
+type Action =
+  | {
+      type: "INIT";
+      data: DiaryType[];
+    }
+  | {
+      type: "CREATE";
+      data: DiaryType;
+    }
+  | {
+      type: "REMOVE";
+      targetId: number;
+    }
+  | {
+      type: "EDIT";
+      data: DiaryType;
+    };
+
+const reducer = (state: DiaryType[], action: Action) => {
   let newState = [];
   switch (action.type) {
     case "INIT": {
@@ -34,8 +54,12 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const DiaryStateContext = React.createContext();
-export const DiaryDispatchContext = React.createContext();
+export const DiaryStateContext = React.createContext<DiaryType[] | null>(null);
+export const DiaryDispatchContext = React.createContext<{
+  onCreate: (date: number, content: string, emotion: number) => void;
+  onRemove: (targetId: number) => void;
+  onEdit: (targetId: number, date: number, content: string, emotion: number) => void;
+} | null>(null);
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
@@ -46,7 +70,7 @@ function App() {
     const localData = localStorage.getItem("diary");
 
     if (localData) {
-      const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id));
+      const diaryList = JSON.parse(localData).sort((a: DiaryType, b: DiaryType) => b.id - a.id);
 
       if (diaryList.length >= 1) {
         dataId.current = parseInt(diaryList[0].id) + 1;
@@ -56,7 +80,7 @@ function App() {
   }, []);
 
   // CREATE
-  const onCreate = (date, content, emotion) => {
+  const onCreate = (date: number, content: string, emotion: number) => {
     dispatch({
       type: "CREATE",
       data: {
@@ -70,12 +94,12 @@ function App() {
   };
 
   // REMOVE
-  const onRemove = (targetId) => {
+  const onRemove = (targetId: number) => {
     dispatch({ type: "REMOVE", targetId });
   };
 
   // EDIT
-  const onEdit = (targetId, date, content, emotion) => {
+  const onEdit = (targetId: number, date: number, content: string, emotion: number) => {
     dispatch({
       type: "EDIT",
       data: {

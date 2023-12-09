@@ -57,7 +57,9 @@ export default function Diary() {
           <section>
             <h4>오늘의 일기</h4>
             <div className="diary_content_wrapper">
-              <p>{data.content}</p>
+              {data.content.split("\n").map((it) => (
+                <p>{it}</p>
+              ))}
             </div>
           </section>
         </article>
