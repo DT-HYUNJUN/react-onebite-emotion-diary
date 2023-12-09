@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Ubuntu:wght@500&family=Yeon+Sung&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Ubuntu:wght@500&family=Yeon+Sung&display=swap");
 
 body {
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Nanum Pen Script';
+  font-family: "Nanum Pen Script";
   min-height: 100vh;
   margin: 0;
 }
@@ -15,17 +15,11 @@ body {
   .App {
     width: 640px;
   }
-  .App_calendar {
-    width: 1000px;
-  }
 }
 
 /* 650px 이하일 때 */
 @media (max-width: 650px) {
   .App {
-    width: 90vw;
-  }
-  .App_calendar {
     width: 90vw;
   }
 }
@@ -36,12 +30,6 @@ body {
 }
 
 .App {
-  min-height: 100vh;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.App_calendar {
   min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
@@ -62,17 +50,17 @@ body {
 }
 
 .MyButton_default {
-  background-color: #ECECEC;
+  background-color: #ececec;
   color: black;
 }
 
 .MyButton_positive {
-  background-color: #64C964;
+  background-color: #64c964;
   color: white;
 }
 
 .MyButton_negative {
-  background-color: #FD565F;
+  background-color: #fd565f;
   color: white;
 }
 
@@ -85,7 +73,7 @@ header {
   display: flex;
   align-items: center;
 
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #e2e2e2;
 }
 
 header > div {
@@ -126,7 +114,7 @@ header button {
   flex-grow: 1;
 }
 
-.DiaryList .menu_wrapper .right_col button{
+.DiaryList .menu_wrapper .right_col button {
   width: 100%;
 }
 
@@ -134,7 +122,7 @@ header button {
   margin-right: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #ECECEC;
+  background-color: #ececec;
 
   padding: 10px 20px;
 
@@ -148,7 +136,7 @@ header button {
   padding-top: 15px;
   padding-bottom: 15px;
 
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #e2e2e2;
 
   display: flex;
   justify-content: space-between;
@@ -164,23 +152,23 @@ header button {
 }
 
 .DiaryItem .emotion_img_wrapper_1 {
-  background-color: #64C964;
+  background-color: #64c964;
 }
 
 .DiaryItem .emotion_img_wrapper_2 {
-  background-color: #9DD772;
+  background-color: #9dd772;
 }
 
 .DiaryItem .emotion_img_wrapper_3 {
-  background-color: #FDCE17;
+  background-color: #fdce17;
 }
 
 .DiaryItem .emotion_img_wrapper_4 {
-  background-color: #FD8446;
+  background-color: #fd8446;
 }
 
 .DiaryItem .emotion_img_wrapper_5 {
-  background-color: #FD565F;
+  background-color: #fd565f;
 }
 
 .DiaryItem .emotion_img_wrapper img {
@@ -220,8 +208,8 @@ header button {
 .DiaryEditor .input_date {
   border: none;
   border-radius: 5px;
-  background-color: #ECECEC;
-  
+  background-color: #ececec;
+
   padding: 10px 20px;
 
   cursor: pointer;
@@ -247,7 +235,7 @@ header button {
 
   border: none;
   border-radius: 5px;
-  background-color: #ECECEC;
+  background-color: #ececec;
 
   padding: 20px;
 }
@@ -282,31 +270,31 @@ header button {
 }
 
 .EmotionItem_off {
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 .EmotionItem_on_1 {
-  background-color: #64C964;
+  background-color: #64c964;
   color: white;
 }
 
 .EmotionItem_on_2 {
-  background-color: #9DD772;
+  background-color: #9dd772;
   color: white;
 }
 
 .EmotionItem_on_3 {
-  background-color: #FDCE17;
+  background-color: #fdce17;
   color: white;
 }
 
 .EmotionItem_on_4 {
-  background-color: #FD8446;
+  background-color: #fd8446;
   color: white;
 }
 
 .EmotionItem_on_5 {
-  background-color: #FD565F;
+  background-color: #fd565f;
   color: white;
 }
 
@@ -327,7 +315,7 @@ header button {
 }
 
 .DiaryPage .diary_img_wrapper {
-  background-color: #ECECEC;
+  background-color: #ececec;
   width: 250px;
   height: 250px;
   border-radius: 5px;
@@ -338,23 +326,23 @@ header button {
 }
 
 .DiaryPage .diary_img_wrapper_1 {
-  background-color: #64C964;
+  background-color: #64c964;
 }
 
 .DiaryPage .diary_img_wrapper_2 {
-  background-color: #9DD772;
+  background-color: #9dd772;
 }
 
 .DiaryPage .diary_img_wrapper_3 {
-  background-color: #FDCE17;
+  background-color: #fdce17;
 }
 
 .DiaryPage .diary_img_wrapper_4 {
-  background-color: #FD8446;
+  background-color: #fd8446;
 }
 
 .DiaryPage .diary_img_wrapper_5 {
-  background-color: #FD565F;
+  background-color: #fd565f;
 }
 
 .DiaryPage .emotion_description {
@@ -364,7 +352,7 @@ header button {
 
 .DiaryPage .diary_content_wrapper {
   width: 100%;
-  background-color: #ECECEC;
+  background-color: #ececec;
   border-radius: 5px;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -377,117 +365,4 @@ header button {
   font-family: "Yeon Sung";
   font-weight: 400;
   line-height: 2.5;
-}
-
-/* home_calendar */
-
-.home_calendar {
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Calendar */
-
-.Calendar .top {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.Calendar .top button {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  height: 30px;
-}
-
-.home_calendar button {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  height: 30px;
-}
-
-/* TodoEditor */
-
-
-/* Days */
-.Day {
-  text-align: center;
-  border: 1px solid #ECECEC;
-  width: 95px;
-}
-
-/* Cell */
-.Cell {
-  display: flex;
-  gap: 20px;
-}
-
-.day {
-  border: 1px solid #ECECEC;
-  width: 95px;
-  height: 90px;
-  padding-left: 5px;
-}
-
-.Days {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  width: 640px;
-}
-
-.week {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-}
-
-.today {
-  border: 1px solid rgba(253, 132, 70, 0.7);
-}
-
-.selected {
-  background-color: rgba(253, 132, 70, 0.7);
-}
-
-.sun {
-  color: red;
-}
-
-.sat {
-  color: blue
-}
-
-.disabled {
-  background-color: #ECECEC;
-  color: gray;
-}
-
-.calendar_body {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 640px;
-}
-
-/* TodoList */
-.TodoList {
-  border: 1px solid #ECECEC;
-  width: 100%;
-  padding: 20px;
-}
-
-.TodoList .header {
-  text-align: center;
-}
-
-/* NewTodo */
-
-/* TodoItem */
-.TodoItem {
-  display: flex;
-  justify-content: space-between;
-}
-
-.TodoItem .todo_content {
-  text-decoration: line-through;
 }
