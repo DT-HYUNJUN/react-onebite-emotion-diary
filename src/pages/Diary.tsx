@@ -1,20 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { DiaryStateContext } from "../App";
+import { useDiaryState } from "../App";
 
 import { getStringDate } from "../util/date";
 import { emotionList } from "../util/emotion";
 
 import MyHeader from "../components/MyHeader";
 import MyButton from "../components/MyButton";
+import { DiaryType, Emotion } from "../types";
 
 export default function Diary() {
-  const diaryList = useContext(DiaryStateContext);
-  const [data, setData] = useState();
+  const diaryList = useDiaryState();
+  const [data, setData] = useState<DiaryType>();
 
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams() as { id: string };
 
   useEffect(() => {
     const titleElement = document.getElementsByTagName("title")[0];
@@ -23,7 +24,7 @@ export default function Diary() {
 
   useEffect(() => {
     if (diaryList.length > 0) {
-      const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
+      const targetDiary = diaryList.find((it) => it.id === parseInt(id));
 
       if (targetDiary) {
         setData(targetDiary);
@@ -37,7 +38,7 @@ export default function Diary() {
   if (!data) {
     return <div className="DiaryPage">로딩중입니다...</div>;
   } else {
-    const curEmotionData = emotionList.find((it) => parseInt(it.emotion_id) === parseInt(data.emotion));
+    const curEmotionData = emotionList.find((it) => it.emotion_id === data.emotion) as Emotion;
 
     return (
       <div className="DiaryPage">

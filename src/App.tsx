@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useContext, useEffect, useReducer, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
@@ -60,6 +60,18 @@ export const DiaryDispatchContext = React.createContext<{
   onRemove: (targetId: number) => void;
   onEdit: (targetId: number, date: number, content: string, emotion: number) => void;
 } | null>(null);
+
+export const useDiaryDispatch = () => {
+  const dispatch = useContext(DiaryDispatchContext);
+  if (!dispatch) throw new Error("dispatch error");
+  return dispatch;
+};
+
+export const useDiaryState = () => {
+  const state = useContext(DiaryStateContext);
+  if (!state) throw new Error("state error");
+  return state;
+};
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
