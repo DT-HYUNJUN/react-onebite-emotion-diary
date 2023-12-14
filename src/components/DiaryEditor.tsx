@@ -1,7 +1,7 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { DiaryDispatchContext } from "../App";
+import { useDiaryDispatch } from "../App";
 
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
@@ -10,33 +10,39 @@ import EmotionItem from "./EmotionItem";
 import { getStringDate } from "../util/date";
 import { emotionList } from "../util/emotion";
 import { useCallback } from "react";
+import { DiaryType } from "../types";
 
-export default function DiaryEditor({ isEdit, originData }) {
+interface Props {
+  isEdit: boolean;
+  originData: DiaryType;
+}
+
+export default function DiaryEditor(props: Props) {
   const [date, setDate] = useState(getStringDate(new Date()));
   const [emotion, setEmotion] = useState(3);
   const [content, setContent] = useState("");
 
-  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
+  const dispatch = useDiaryDispatch();
 
-  const contentRef = useRef();
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const navigate = useNavigate();
 
-  const handleClickEmote = useCallback((emotion) => {
+  const handleClickEmote = useCallback((emotion: number) => {
     setEmotion(emotion);
   }, []);
 
   const handleSubmit = () => {
-    if (content.length < 1) {
+    if (contentRef.current && content.length < 1) {
       contentRef.current.focus();
       return;
     }
 
-    if (window.confirm(isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?")) {
-      if (!isEdit) {
-        onCreate(date, content, emotion);
+    if (window.confirm(props.isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?")) {
+      if (!props.isEdit) {
+        dispatch.onCreate(date, content, emotion);
       } else {
-        onEdit(originData.id, date, content, emotion);
+        dispatch.onEdit(props.originData.id, date, content, emotion);
       }
     }
     navigate("/", { replace: true });
@@ -44,27 +50,27 @@ export default function DiaryEditor({ isEdit, originData }) {
 
   const handleRemove = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      onRemove(originData.id);
+      dispatch.onRemove(props.originData.id);
       navigate("/", { replace: true });
     }
   };
 
   useEffect(() => {
-    if (isEdit) {
-      setDate(getStringDate(new Date(parseInt(originData.date))));
-      setEmotion(originData.emotion);
-      setContent(originData.content);
+    if (props.isEdit) {
+      setDate(getStringDate(new Date(props.originData.date)));
+      setEmotion(props.originData.emotion);
+      setContent(props.originData.content);
     }
-  }, [isEdit, originData]);
+  }, [props.isEdit, props.originData]);
 
   console.log(date);
 
   return (
     <div className="DiaryEditor">
       <MyHeader
-        headText={isEdit ? "일기 수정하기" : "새 일기쓰기"}
+        headText={props.isEdit ? "일기 수정하기" : "새 일기쓰기"}
         leftChild={<MyButton text={"< 뒤로가기"} onClick={() => navigate(-1)} />}
-        rightChild={isEdit && <MyButton text={"삭제하기"} type={"negative"} onClick={handleRemove} />}
+        rightChild={props.isEdit && <MyButton text={"삭제하기"} type={"negative"} onClick={handleRemove} />}
       />
       <div>
         <section>

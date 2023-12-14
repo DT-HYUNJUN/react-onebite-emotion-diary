@@ -56,9 +56,9 @@ const reducer = (state: DiaryType[], action: Action) => {
 
 export const DiaryStateContext = React.createContext<DiaryType[] | null>(null);
 export const DiaryDispatchContext = React.createContext<{
-  onCreate: (date: number, content: string, emotion: number) => void;
+  onCreate: (date: string, content: string, emotion: number) => void;
   onRemove: (targetId: number) => void;
-  onEdit: (targetId: number, date: number, content: string, emotion: number) => void;
+  onEdit: (targetId: number, date: string, content: string, emotion: number) => void;
 } | null>(null);
 
 export const useDiaryDispatch = () => {
@@ -92,7 +92,7 @@ function App() {
   }, []);
 
   // CREATE
-  const onCreate = (date: number, content: string, emotion: number) => {
+  const onCreate = (date: string, content: string, emotion: number) => {
     dispatch({
       type: "CREATE",
       data: {
@@ -111,7 +111,7 @@ function App() {
   };
 
   // EDIT
-  const onEdit = (targetId: number, date: number, content: string, emotion: number) => {
+  const onEdit = (targetId: number, date: string, content: string, emotion: number) => {
     dispatch({
       type: "EDIT",
       data: {
