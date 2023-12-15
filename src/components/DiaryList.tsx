@@ -3,6 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 import MyButton from "./MyButton";
 import DiaryItem from "./DiaryItem";
+import { DiaryType } from "../types";
+
+interface option {
+  value: string;
+  name: string;
+}
+
+interface ControlMenuProps {
+  value: string;
+  onChange: React.Dispatch<React.SetStateAction<string>>;
+  optionList: option[];
+}
 
 const sortOptionList = [
   { value: "latest", name: "최신 순" },
@@ -15,10 +27,10 @@ const filterOptionList = [
   { value: "bad", name: "안 좋은 감정만" },
 ];
 
-const ControlMenu = React.memo(({ value, onChange, optionList }) => {
+const ControlMenu = React.memo((props: ControlMenuProps) => {
   return (
-    <select className="ControlMenu" value={value} onChange={(e) => onChange(e.target.value)}>
-      {optionList.map((it, idx) => (
+    <select className="ControlMenu" value={props.value} onChange={(e) => props.onChange(e.target.value)}>
+      {props.optionList.map((it, idx) => (
         <option key={idx} value={it.value}>
           {it.name}
         </option>
@@ -27,29 +39,33 @@ const ControlMenu = React.memo(({ value, onChange, optionList }) => {
   );
 });
 
-export default function DiaryList({ diaryList }) {
+interface Props {
+  diaryList: DiaryType[];
+}
+
+export default function DiaryList(props: Props) {
   const [sortType, setSortType] = useState("latest");
   const [filter, setFilter] = useState("all");
 
   const navigate = useNavigate();
 
-  const filterCallBack = (item) => {
+  const filterCallBack = (item: DiaryType) => {
     if (filter === "good") {
-      return parseInt(item.emotion) <= 3;
+      return item.emotion <= 3;
     } else {
-      return parseInt(item.emotion) > 3;
+      return item.emotion > 3;
     }
   };
 
   const getProcessedDiaryList = () => {
-    const compare = (a, b) => {
+    const compare = (a: DiaryType, b: DiaryType) => {
       if (sortType === "latest") {
-        return parseInt(b.date) - parseInt(a.date);
+        return b.date - a.date;
       } else {
-        return parseInt(a.date) - parseInt(b.date);
+        return a.date - b.date;
       }
     };
-    const copyList = JSON.parse(JSON.stringify(diaryList));
+    const copyList: DiaryType[] = JSON.parse(JSON.stringify(props.diaryList));
 
     const filteredList = filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it));
 
