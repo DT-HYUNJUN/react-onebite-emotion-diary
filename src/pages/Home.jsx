@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { DiaryStateContext } from "../App";
 
@@ -9,8 +8,6 @@ import DiaryList from "../components/DiaryList";
 
 export default function Home() {
   const diaryList = useContext(DiaryStateContext);
-
-  const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(new Date());

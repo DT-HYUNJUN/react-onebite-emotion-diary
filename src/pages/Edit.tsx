@@ -4,13 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../App";
 
 import DiaryEditor from "../components/DiaryEditor";
+import { DiaryType } from "../types";
 
 export default function Edit() {
   const diaryList = useContext(DiaryStateContext);
 
-  const [originData, setOriginData] = useState();
+  const [originData, setOriginData] = useState<DiaryType>();
 
   const navigate = useNavigate();
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -19,8 +21,8 @@ export default function Edit() {
   }, []);
 
   useEffect(() => {
-    if (diaryList.length > 0) {
-      const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
+    if (diaryList && diaryList.length > 0) {
+      const targetDiary = diaryList.find((it) => it.id === parseInt(id!));
 
       if (targetDiary) {
         setOriginData(targetDiary);
