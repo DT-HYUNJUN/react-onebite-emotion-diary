@@ -13,8 +13,8 @@ import { useCallback } from "react";
 import { DiaryType } from "../types";
 
 interface Props {
-  isEdit: boolean;
-  originData: DiaryType;
+  isEdit?: boolean;
+  originData?: DiaryType;
 }
 
 export default function DiaryEditor(props: Props) {
@@ -42,7 +42,9 @@ export default function DiaryEditor(props: Props) {
       if (!props.isEdit) {
         dispatch.onCreate(date, content, emotion);
       } else {
-        dispatch.onEdit(props.originData.id, date, content, emotion);
+        if (props.originData) {
+          dispatch.onEdit(props.originData.id, date, content, emotion);
+        }
       }
     }
     navigate("/", { replace: true });
@@ -50,13 +52,15 @@ export default function DiaryEditor(props: Props) {
 
   const handleRemove = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      dispatch.onRemove(props.originData.id);
+      if (props.originData) {
+        dispatch.onRemove(props.originData.id);
+      }
       navigate("/", { replace: true });
     }
   };
 
   useEffect(() => {
-    if (props.isEdit) {
+    if (props.isEdit && props.originData) {
       setDate(getStringDate(new Date(props.originData.date)));
       setEmotion(props.originData.emotion);
       setContent(props.originData.content);
@@ -70,7 +74,7 @@ export default function DiaryEditor(props: Props) {
       <MyHeader
         headText={props.isEdit ? "일기 수정하기" : "새 일기쓰기"}
         leftChild={<MyButton text={"< 뒤로가기"} onClick={() => navigate(-1)} />}
-        rightChild={props.isEdit && <MyButton text={"삭제하기"} type={"negative"} onClick={handleRemove} />}
+        rightChild={props.isEdit! && <MyButton text={"삭제하기"} type={"negative"} onClick={handleRemove} />}
       />
       <div>
         <section>
